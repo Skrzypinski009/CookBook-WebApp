@@ -1,0 +1,26 @@
+@page "/recipes"
+@inject ILogger<Recipes> Logger
+
+<PageTitle>Recipes</PageTitle>
+
+<h1>Welcome in recipes page. </h1>
+
+<form method="post" @onsubmit="Submit" @formname="searchform1">
+  <AntiforgeryToken />
+  <InputText @bind-Value="Model!.search" />
+</form>
+
+<SearchResults Query="@Model?.search" />
+
+@code {
+    [SupplyParameterFromForm]
+    private SearchModel? Model { get; set; }
+
+    protected override void OnInitialized() => Model ??= new();
+
+    private void Submit() => Logger.LogInformation("Search = {search}", Model?.search);
+
+    public class SearchModel {
+        public string? search {get; set; }
+}
+}
