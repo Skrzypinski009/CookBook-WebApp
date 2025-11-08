@@ -1,0 +1,23 @@
+
+<form method="post" @onsubmit="Submit" @formname="edit_recipe1">
+  <AntiforgeryToken />
+  <InputText @bind-Value="model.name" /><br/>
+  <InputText @bind-Value="model.description" /><br/>
+  <button value="Pressmepls" /><br/>
+  <InputText @bind-Value="model.preparationMethod" /><br/>
+</form>
+
+@code {
+    private EditRecipeModel? model = new();
+
+    protected void Submit() {
+
+   }
+
+    class EditRecipeModel {
+        public string? name;
+        public string? description;
+        public List<string>? ingredients;
+        public string? preparationMethod;
+  }
+  }
