@@ -1,0 +1,24 @@
+@page "/profile"
+
+<PageTitle>Profile</PageTitle>
+
+<h2>User name</h2>
+
+<p>short description</p>
+<p>rating</p>
+
+<h3>User recipes</h3>
+<SearchResults Query="@Model?.search" />
+
+@code {
+    [SupplyParameterFromForm]
+    private SearchModel? Model { get; set; }
+
+    protected override void OnInitialized(){
+        Model ??= new();
+        Model.search = "Blazor";
+}
+    public class SearchModel {
+        public string? search {get; set; }
+}
+}
