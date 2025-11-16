@@ -1,23 +1,63 @@
-﻿<nav class="navbar navbar-expand-lg navbar-custom shadow-sm">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">CookBook</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-            <span class="navbar-toggler-icon"></span>
-        </button>
+<!-- Zielony navbar -->
+<nav class="bg-green-600 shadow-lg">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16">
+            <!-- Lewa strona - logo i nazwa -->
+            <div class="flex items-center">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="text-white text-2xl font-bold">🍳 CookBook</span>
+                </div>
 
-        <div class="collapse navbar-collapse justify-content-start" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/recipes">Przepisy</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/add_recipe">Dodaj przepis</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/profile">Profil</a>
-                </li>
-            </ul>
+                <!-- Linki nawigacyjne - widoczne na desktop -->
+                <div class="hidden md:ml-6 md:flex md:space-x-4">
+                    <NavLink href="/" class="text-green-100 hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        Strona główna
+                    </NavLink>
+                    <NavLink href="/recipes" class="text-green-100 hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        Przepisy
+                    </NavLink>
+                    <NavLink href="/add_recipe" class="text-green-100 hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        Dodaj przepis
+                    </NavLink>
+                    <NavLink href="/profile" class="text-green-100 hover:bg-green-700 hover:text-white px-3 py-2 rounded-md text-sm font-medium transition-colors">
+                        Mój profil
+                    </NavLink>
+                </div>
+            </div>
+
+            <!-- Prawa strona - dodatkowe linki -->
+            <div class="md:hidden flex items-center">
+                <button onclick="toggleMenu()" class="text-green-100 hover:text-white p-2">
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <div id="mobileMenu" class="md:hidden hidden bg-green-700">
+        <div class="mr-4 px-2 pt-2 pb-3 space-y-1 sm:px-3">
+            <NavLink href="/" class="text-green-100 hover:bg-green-600 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                Strona główna
+            </NavLink>
+            <NavLink href="/recipes" class="text-green-100 hover:bg-green-600 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                Przepisy
+            </NavLink>
+            <NavLink href="/add_recipe" class="text-green-100 hover:bg-green-600 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                Dodaj przepis
+            </NavLink>
+            <NavLink href="/profile" class="text-green-100 hover:bg-green-600 hover:text-white block px-3 py-2 rounded-md text-base font-medium">
+                👤 Mój profil
+            </NavLink>
         </div>
     </div>
 </nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+function toggleMenu() {
+    const menu = document.getElementById('mobileMenu');
+    menu.classList.toggle('hidden');
+}
+</script>

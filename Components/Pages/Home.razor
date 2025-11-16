@@ -1,7 +1,38 @@
-﻿@page "/"
+﻿@inject NavigationManager Nav
+@page "/"
 
 <PageTitle>Home</PageTitle>
 
-<h1>Hello, world!</h1>
+<div class="w-full mt-24 text-center">
+  <h1 class="text-6xl mb-12">
+    Witaj w naszej kuchni pełnej smaków! 🍳🥗
+  </h1>
+  <p class="text-4xl mb-12">
+    Znajdziesz tu przepisy, które rozbudzą Twoją wyobraźnię kulinarną! <br />
+    Od szybkich dań na co dzień po wykwintne potrawy na specjalne okazje.
+    Gotuj, smakuj i odkrywaj nowe inspiracje każdego dnia!
+  </p>
+  <button type="button" @onclick="GoToRecipes"
+          class="block mx-auto mb-24 bg-green-600 hover:bg-green-700 text-white font-bold text-2xl py-3 px-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2">
+    Przepisy
+  </button>
+  <p class="text-4xl mb-12">
+    Zaloguj się, aby dodawać własne przepisy i oceniać potrawy innych.
+  </p>
+  <button type="button" @onclick="GoToLogin"
+          class="block mx-auto mb-24 bg-green-600 hover:bg-green-700 text-white font-bold text-2xl py-3 px-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2">
+    Zaloguj się
+  </button>
+</div>
 
-Welcome to your new app.
+@code {
+    void GoToRecipes()
+    {
+        Nav.NavigateTo("/recipes");
+    }
+
+    void GoToLogin()
+    {
+        Nav.NavigateTo("/login");
+    }
+}

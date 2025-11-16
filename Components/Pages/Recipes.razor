@@ -1,26 +1,27 @@
 @page "/recipes"
-@inject ILogger<Recipes> Logger
+@rendermode InteractiveServer
+@using System.ComponentModel.DataAnnotations
 
 <PageTitle>Recipes</PageTitle>
-
-<h1>Welcome in recipes page. </h1>
-
-<form method="post" @onsubmit="Submit" @formname="searchform1">
-  <AntiforgeryToken />
-  <InputText @bind-Value="Model!.search" />
+<form @onsubmit:preventDefault="true" @onsubmit="Submit">
+    <input @bind="searchModel.Query"
+                       class="w-[600px] mx-auto block px-3 py-2 border-2 !border-gray-200 rounded-full bg-white shadow-sm focus:ring-2 focus:ring-green-500 focus:!border-green-500 text-gray-900 placeholder-gray-400 transition-all duration-200 focus:outline-none"
+                       placeholder="Czego szukasz?" />
 </form>
 
-<SearchResults Query="@Model?.search" />
+
+<SearchResults searchModel="@searchModel" />
 
 @code {
-    [SupplyParameterFromForm]
-    private SearchModel? Model { get; set; }
+    protected SearchModel searchModel = new();
 
-    protected override void OnInitialized() => Model ??= new();
+    protected override void OnInitialized() {
+        searchModel.Limit = true;
+    }
 
-    private void Submit() => Logger.LogInformation("Search = {search}", Model?.search);
-
-    public class SearchModel {
-        public string? search {get; set; }
-}
+    private void Submit()
+    {
+        Console.WriteLine(searchModel.Query);
+        StateHasChanged();
+    }
 }

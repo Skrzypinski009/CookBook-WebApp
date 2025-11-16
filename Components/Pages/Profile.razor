@@ -2,23 +2,22 @@
 
 <PageTitle>Profile</PageTitle>
 
-<h2>User name</h2>
+<h2 class="text-3xl">John Bułka</h2>
 
-<p>short description</p>
-<p>rating</p>
+<p class="text-lg">short description</p>
+<p class="text-xl">
+    ⭐⭐⭐
+</p>
+<p class="text-lg">rating</p>
 
-<h3>User recipes</h3>
-<SearchResults Query="@Model?.search" />
+<h2 class="text-2xl">User recipes</h2>
+
+<SearchResults SearchModel="@searchModel" />
 
 @code {
-    [SupplyParameterFromForm]
-    private SearchModel? Model { get; set; }
+    protected SearchModel searchModel = new();
 
     protected override void OnInitialized(){
-        Model ??= new();
-        Model.search = "Blazor";
-}
-    public class SearchModel {
-        public string? search {get; set; }
-}
+        searchModel.Query= "Blazor";
+    }
 }

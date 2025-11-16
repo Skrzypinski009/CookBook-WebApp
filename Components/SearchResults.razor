@@ -10,21 +10,41 @@ else if (Results.Count == 0)
 }
 else
 {
-    <ul>
-        @foreach (var item in Results)
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-6">
+        @foreach (var przepis in Results)
         {
-            <li>@item</li>
+            <a href="/przepis/1" class="block bg-white rounded-xl shadow-md hover:shadow-lg transition-shadow duration-300 border border-gray-100 overflow-hidden">
+                <div class="p-6">
+                    <!-- Nagłówek z nazwą i oceną -->
+                    <div class="flex justify-between items-start mb-3">
+                        <h3 class="text-xl font-bold text-gray-900 line-clamp-2">@przepis</h3>
+                        <div class="flex items-center bg-green-100 text-green-800 px-2 py-1 rounded-full text-sm font-semibold ml-2">
+                            ⭐⭐⭐
+                        </div>
+                    </div>
+
+                    <!-- Opis -->
+                    <p class="text-gray-600 line-clamp-3">krótkki opis</p>
+
+                    <!-- Dodatkowe info -->
+                    <div class="mt-4 flex items-center text-sm text-gray-500">
+                        <span class="mr-4">🕒 45 min</span>
+                        <span>👥 4</span>
+                    </div>
+                </div>
+            </a>
         }
-    </ul>
+    </div>
 }
 
 @code {
-    [Parameter] public string Query { get; set; }
+    [Parameter] public SearchModel searchModel { get; set; } = new();
 
     private List<string> Results = new();
 
     protected override async Task OnParametersSetAsync()
     {
-        Results = await SearchService.SearchAsync(Query);
+        Results = await SearchService.SearchAsync(searchModel);
     }
 }

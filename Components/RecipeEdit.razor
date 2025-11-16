@@ -1,23 +1,66 @@
+@inherits RecipeEditPage
+@rendermode InteractiveServer
 
-<form method="post" @onsubmit="Submit" @formname="edit_recipe1">
-  <AntiforgeryToken />
-  <InputText @bind-Value="model.name" /><br/>
-  <InputText @bind-Value="model.description" /><br/>
-  <button value="Pressmepls" /><br/>
-  <InputText @bind-Value="model.preparationMethod" /><br/>
+<form method="post" @onsubmit="Submit" @formname="edit_recipe1" class="max-w-3xl mx-auto mt-5 bg-white p-10 rounded-2xl shadow-xl border border-gray-100">
+    <AntiforgeryToken />
+
+    <h1 class="text-3xl text-center">@Title</h1>
+
+    <!-- Nazwa przepisu -->
+    <div class="mb-8">
+        <label class="block text-lg font-semibold text-gray-800 mb-3">Nazwa przepisu</label>
+        <InputText @bind-Value="model.name"
+                   class="w-full px-3 py-3 text-lg border-2 border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-3 focus:ring-green-500 focus:border-green-500 focus:outline-none text-gray-900 placeholder-gray-400 transition-all duration-200"
+                   placeholder="Wpisz nazwę przepisu..." />
+    </div>
+
+    <!-- Opis -->
+    <div class="mb-8">
+        <label class="block text-lg font-semibold text-gray-800 mb-3">Opis</label>
+        <InputText @bind-Value="model.description"
+                   class="w-full px-3 py-3 text-lg border-2 border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-3 focus:ring-green-500 focus:border-green-500 focus:outline-none text-gray-900 placeholder-gray-400 transition-all duration-200"
+                   placeholder="Krótki opis przepisu..." />
+    </div>
+
+    <div class="mb-8">
+        <label class="block text-lg font-semibold text-gray-800 mb-3">Składniki</label>
+        <div id="ingredients">
+
+          @foreach (var ingredient in Ingredients)
+          {
+            <div id="ingredient" class="mb-4">
+              <InputText @bind-Value="ingredient.Name"
+                                     class=" px-3 py-3 text-lg border-2 border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-3 focus:ring-green-500 focus:border-green-500 focus:outline-none text-gray-900 placeholder-gray-400 transition-all duration-200"
+                                     placeholder="Wpisz nazwę składnika" />
+              <InputText @bind-Value="ingredient.Quantity"
+                                     class=" px-3 py-3 text-lg border-2 border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-3 focus:ring-green-500 focus:border-green-500 focus:outline-none text-gray-900 placeholder-gray-400 transition-all duration-200"
+                                     placeholder="Wpisz ilość" />
+              <button type="button"  @onclick="() => RemoveIngredient(ingredient)"
+                class="w-12 h-12 text-xl text-white bg-red-500 rounded-full">
+                -
+              </button>
+            </div>
+          }
+
+        </div>
+        <button type="button" @onclick="AddIngredient" class="w-12 h-12 text-3xl text-white bg-green-600 rounded-full">
+          +
+        </button>
+    </div>
+
+
+    <!-- Sposób przygotowania -->
+    <div class="mb-10">
+        <label class="block text-lg font-semibold text-gray-800 mb-3">Sposób przygotowania</label>
+        <InputTextArea @bind-Value="model.preparationMethod"
+                       class="w-full px-3 py-3 text-lg border-2 border-gray-200 rounded-2xl bg-white shadow-sm focus:ring-3 focus:ring-green-500 focus:border-green-500 focus:outline-none text-gray-900 placeholder-gray-400 transition-all duration-200 resize-none"
+                       placeholder="Opisz krok po kroku..."
+                       rows="4" />
+    </div>
+
+    <!-- Przycisk -->
+    <button type="submit"
+            class="block mx-auto bg-green-600 hover:bg-green-700 text-white font-bold text-xl py-3 px-5 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-200 transform hover:-translate-y-1 focus:outline-none focus:ring-4 focus:ring-green-500 focus:ring-offset-2">
+        🍳 Zapisz przepis
+    </button>
 </form>
-
-@code {
-    private EditRecipeModel? model = new();
-
-    protected void Submit() {
-
-   }
-
-    class EditRecipeModel {
-        public string? name;
-        public string? description;
-        public List<string>? ingredients;
-        public string? preparationMethod;
-  }
-  }

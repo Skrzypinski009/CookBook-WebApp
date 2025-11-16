@@ -6,13 +6,24 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 
+
 builder.Services.AddScoped<SearchService>();
+
 
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlite("Data Source=app.db"));
 
 
+builder.Services.AddAuthentication("MyCookieAuth")
+    .AddCookie("MyCookieAuth", options =>
+    {
+        options.LoginPath = "/login"; // ścieżka do strony logowania
+    });
+
+builder.Services.AddAuthorization();
+
 var app = builder.Build();
+
 
 // Creating DB
 using (var scope = app.Services.CreateScope())
